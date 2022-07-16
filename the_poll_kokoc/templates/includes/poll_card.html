@@ -1,0 +1,14 @@
+<article>
+  <ul>
+    <li>
+      {{ poll.name }}
+    </li>
+  </ul>
+  <p>
+    {{ poll.description }}
+  </p>
+  <p>
+    Награда за прохождение: {{ poll.reward }}
+  </p>
+  <a href="{#{% url 'polls:take_poll' poll.id %}#}"> Пройти опрос </a>
+</article>

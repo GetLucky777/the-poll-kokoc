@@ -1,6 +1,10 @@
 from django.shortcuts import render
+from .models import Poll
 
 
 def index(request):
-    template = 'polls/index.html'
-    return render(request, template)
+    polls = Poll.objects.all()
+    context = {
+        'polls': polls
+    }
+    return render(request, 'polls/index.html', context)
