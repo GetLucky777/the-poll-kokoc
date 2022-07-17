@@ -103,3 +103,11 @@ class UserAnswer(models.Model):
         verbose_name='Ответ',
         help_text='Ответ пользователя'
     )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['poll', 'question', 'user'],
+                name='unique poll try'
+            )
+        ]

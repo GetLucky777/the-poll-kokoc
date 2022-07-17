@@ -19,6 +19,8 @@ def index(request):
 
 @login_required
 def take_poll(request, poll_id):
+    if UserAnswer.objects.all().filter(poll=poll_id).exists():
+        return redirect('polls:index')
     poll = Poll.objects.get(id=poll_id)
     questions_number = Question.objects.all().filter(poll=poll_id).count()
     questions = Question.objects.all().filter(poll=poll_id)
@@ -27,7 +29,9 @@ def take_poll(request, poll_id):
         answers.append(Answer.objects.all().filter(question=question))
     QuestionFormSet = formset_factory(
         OneChoiceForm,
-        extra=questions_number,
+        extra=0,
+        min_num=questions_number,
+        validate_min=True,
         formset=QuestionsFormSet
     )
     formset = QuestionFormSet(

@@ -2,9 +2,9 @@
 <header>
   <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
     <div class="container">
-    <ul class="nav nav-pills">
+      <ul class="nav nav-pills nav-fill w-100">
         {% with request.resolver_match.view_name as view_name %}
-        <li class="nav-item"> 
+          <li class="nav-item"> 
             <a class="nav-link {% if view_name == 'polls:index' %}active{% endif %}" 
             href="{% url 'polls:index' %}">Главная</a>
           </li>
@@ -12,8 +12,36 @@
             <a class="nav-link {% if view_name == 'polls:leaderboard' %}active{% endif %}"
             href="{% url 'polls:leaderboard' %}">Таблица лидеров</a>
           </li>
+        {% if user.is_authenticated %}
+          <li class="nav-item"> 
+            <a class="nav-link {% if view_name == 'users:profile' %}active{% endif %}" 
+            href="{% url 'users:profile' %}">Профиль</a>
+          </li>
+          <li class="nav-item"> 
+            <a class="nav-link {% if view_name == 'users:password_change' %}active{% endif %}" 
+            href="{% url 'users:password_change' %}">Изменить пароль</a>
+          </li>
+          <li class="nav-item"> 
+            <a class="nav-link {% if view_name == 'users:logout' %}active{% endif %}" 
+            href="{% url 'users:logout' %}">Выйти</a>
+          </li>
+          <li class="nav-item">
+            <span class="border border-secondary border-4">
+              {{ user.username }} 
+            </span> 
+          </li>
+        {% else %}
+          <li class="nav-item"> 
+            <a class="nav-link {% if view_name == 'users:login' %}active{% endif %}"
+            href="{% url 'users:login' %}">Войти</a>
+          </li>
+          <li class="nav-item"> 
+            <a class="nav-link {% if view_name == 'users:signup' %}active{% endif %}"
+            href="{% url 'users:signup' %}">Регистрация</a>
+          </li>
+        {% endif %}
         {% endwith %}
-    </ul>
+      </ul>
     </div>
   </nav>
 </header>

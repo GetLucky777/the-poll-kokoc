@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
+from django import forms
 
 User = get_user_model()
 
@@ -12,4 +13,13 @@ class CreationForm(UserCreationForm):
             'last_name',
             'username',
             'email'
+        )
+
+
+class ChangeColorForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = (
+            'login_color',
+            'background_color'
         )
