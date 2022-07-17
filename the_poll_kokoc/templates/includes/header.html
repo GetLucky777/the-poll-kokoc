@@ -1,6 +1,19 @@
 {% load static %}
 <header>
-  <nav class="navbar navbar-dark bg-dark">
-    Хедер
+  <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <div class="container">
+    <ul class="nav nav-pills">
+        {% with request.resolver_match.view_name as view_name %}
+        <li class="nav-item"> 
+            <a class="nav-link {% if view_name == 'polls:index' %}active{% endif %}" 
+            href="{% url 'polls:index' %}">Главная</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if view_name == 'polls:leaderboard' %}active{% endif %}"
+            href="{% url 'polls:leaderboard' %}">Таблица лидеров</a>
+          </li>
+        {% endwith %}
+    </ul>
+    </div>
   </nav>
 </header>

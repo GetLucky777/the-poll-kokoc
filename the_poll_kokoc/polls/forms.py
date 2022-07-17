@@ -7,7 +7,8 @@ from .models import Question
 class OneChoiceForm(forms.Form):
     answers = forms.ModelChoiceField(
         queryset=Question.objects.none(),
-        widget=forms.RadioSelect
+        widget=forms.RadioSelect,
+        empty_label=None
     )
 
     def __init__(self, *args, **kwargs):

@@ -13,7 +13,8 @@ class User(AbstractUser):
     balance = models.DecimalField(
         max_digits=6,
         decimal_places=2,
-        null=True
+        null=True,
+        default=0.00
     )
     login_color = models.CharField(
         max_length=10,

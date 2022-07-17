@@ -1,7 +1,12 @@
 from django.shortcuts import render, redirect
 from django.forms import formset_factory
+from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from .models import Poll, Question, Answer, UserAnswer
 from .forms import OneChoiceForm, QuestionsFormSet
+
+
+User = get_user_model()
 
 
 def index(request):
@@ -12,6 +17,7 @@ def index(request):
     return render(request, 'polls/index.html', context)
 
 
+@login_required
 def take_poll(request, poll_id):
     poll = Poll.objects.get(id=poll_id)
     questions_number = Question.objects.all().filter(poll=poll_id).count()
@@ -37,5 +43,19 @@ def take_poll(request, poll_id):
                 answer=form.cleaned_data['answers']
             )
             user_answer.save()
+        request.user.balance += poll.reward
+        request.user.save()
         return redirect('polls:index')
-    return render(request, 'polls/take_poll.html', {'formset': formset})
+    return render(
+        request,
+        'polls/take_poll.html',
+        context={
+            'formset': formset,
+            'question_data': zip(formset, questions),
+            'poll': poll
+        }
+    )
+
+
+def leaderboard(request):
+    return render(request, 'polls/leaderboard.html')
