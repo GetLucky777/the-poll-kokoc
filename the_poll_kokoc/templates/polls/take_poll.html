@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load user_filters %}
+{% block content %}
+  <h1>Тест</h1>
+  <div class="card-body">
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+      {{ field }}
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">
+  </div>
+{% endblock %}

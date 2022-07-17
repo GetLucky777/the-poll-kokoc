@@ -10,5 +10,5 @@
   <p>
     Награда за прохождение: {{ poll.reward }}
   </p>
-  <a href="{#{% url 'polls:take_poll' poll.id %}#}"> Пройти опрос </a>
+  <a href="{% url 'polls:take_poll' poll.id %}"> Пройти опрос </a>
 </article>

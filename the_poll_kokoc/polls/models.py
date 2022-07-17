@@ -1,4 +1,8 @@
+from tabnanny import verbose
 from django.db import models
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class Poll(models.Model):
@@ -44,13 +48,13 @@ class Question(models.Model):
         verbose_name='Опрос',
         help_text='Опрос, в котором находится вопрос'
     )
-    question_type = models.CharField(
-        max_length=2,
-        choices=QUESTION_CHOICES,
-        default=SINGLE_ANSWER,
-        verbose_name='Тип',
-        help_text='Тип вопроса'
-    )
+    # question_type = models.CharField(
+        # max_length=2,
+        # choices=QUESTION_CHOICES,
+        # default=SINGLE_ANSWER,
+        # verbose_name='Тип',
+        # help_text='Тип вопроса'
+    # )
     text = models.TextField(
         verbose_name='Текст',
         help_text='Текст вопроса'
@@ -75,10 +79,42 @@ class Answer(models.Model):
         verbose_name='Вопрос',
         help_text='Заданный вопрос'
     )
-    text = models.TextField(
+    text = models.CharField(
+        max_length=50,
         verbose_name='Текст',
         help_text='Текст ответа'
     )
 
     def __str__(self) -> str:
         return self.text
+
+
+class UserAnswer(models.Model):
+    poll = models.ForeignKey(
+        Poll,
+        on_delete=models.CASCADE,
+        related_name='user_answers',
+        verbose_name='Опрос',
+        help_text='Опрос'
+    )
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name='user_answers',
+        verbose_name='Вопрос',
+        help_text='Заданный вопрос'
+    )
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='user_answers',
+        verbose_name='Пользователь',
+        help_text='Пользователь, давший ответ'
+    )
+    answer = models.ForeignKey(
+        Answer,
+        on_delete=models.CASCADE,
+        related_name='user_answers',
+        verbose_name='Ответ',
+        help_text='Ответ пользователя'
+    )
