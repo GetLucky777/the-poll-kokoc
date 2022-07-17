@@ -33,14 +33,6 @@ class Poll(models.Model):
 
 
 class Question(models.Model):
-    OPEN = 'OP'
-    SINGLE_ANSWER = 'SA'
-    MULTIPLE_ANSWERS = 'MA'
-    QUESTION_CHOICES = [
-        (OPEN, 'Открытый вопрос'),
-        (SINGLE_ANSWER, 'Один ответ'),
-        (MULTIPLE_ANSWERS, 'Несколько вариантов ответа'),
-    ]
     poll = models.ForeignKey(
         Poll,
         on_delete=models.CASCADE,
@@ -48,13 +40,6 @@ class Question(models.Model):
         verbose_name='Опрос',
         help_text='Опрос, в котором находится вопрос'
     )
-    # question_type = models.CharField(
-        # max_length=2,
-        # choices=QUESTION_CHOICES,
-        # default=SINGLE_ANSWER,
-        # verbose_name='Тип',
-        # help_text='Тип вопроса'
-    # )
     text = models.TextField(
         verbose_name='Текст',
         help_text='Текст вопроса'

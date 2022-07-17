@@ -1,12 +1,7 @@
 from django import forms
+from django.forms import BaseFormSet
 
-from .models import Question, UserAnswer
-
-
-#class OpenQuestionForm(forms.Form):
-    # answers = forms.Textarea(
-        # label='Напишите ваш ответ в поле'
-    # )
+from .models import Question
 
 
 class OneChoiceForm(forms.Form):
@@ -14,15 +9,16 @@ class OneChoiceForm(forms.Form):
         queryset=Question.objects.none(),
         widget=forms.RadioSelect
     )
-    
+
     def __init__(self, *args, **kwargs):
         answers_qs = kwargs.pop('answers_qs')
+        qs_list = kwargs.pop('answers_list')
         super(OneChoiceForm, self).__init__(*args, **kwargs)
         self.fields['answers'].queryset = answers_qs
 
 
-
-# class MultipleChoiceForm(forms.Form):
-    # answers = forms.CheckboxSelectMultiple(
-        # label='Выберите несколько вариантов ответа'
-    # )
+class QuestionsFormSet(BaseFormSet):
+    def get_form_kwargs(self, index):
+        kwargs = super(QuestionsFormSet, self).get_form_kwargs(index)
+        kwargs['answers_qs'] = kwargs['answers_list'][index]
+        return kwargs

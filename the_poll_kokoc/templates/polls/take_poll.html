@@ -3,11 +3,19 @@
 {% block content %}
   <h1>Тест</h1>
   <div class="card-body">
-    <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% for field in form %}
-      {{ field }}
-    {% endfor %}
-    <button type="submit" class="btn btn-primary">
+    <form method="post">
+      {% csrf_token %}
+      {{ formset.management_form }}
+      <table>
+        {% for form in formset %}
+          {% for field in form %}
+            {{ field }}
+          {% endfor %}
+        {% endfor %}
+      </table>
+      <button type="submit" class="btn btn-primary">
+        Ответить
+      </button>
+    </form>
   </div>
 {% endblock %}
