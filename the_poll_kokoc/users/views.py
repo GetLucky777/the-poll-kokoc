@@ -7,6 +7,7 @@ from .models import Colors
 
 
 def profile(request):
+    colors = Colors.objects.all()
     form = ChangeColorForm(
         request.POST or None,
         files=request.FILES or None,
@@ -18,7 +19,7 @@ def profile(request):
         request.user.balance -= Colors.objects.get(color=login_color).cost
         request.user.balance -= Colors.objects.get(color=backgrnd_color).cost
         form.save()
-    return render(request, 'users/profile.html', {'form': form})
+    return render(request, 'users/profile.html', {'form': form, 'colors': colors})
 
 
 class SignUp(CreateView):

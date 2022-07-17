@@ -2,10 +2,16 @@
 {% load user_filters %}
 {% block title %}Войти{% endblock %}
 {% block content %}
-  <div class="mb-5 bg-secondary">
+  <div class="mb-5 bg-secondary bg-gradient">
     <div class="mb-5">
         <h1>Ваш профиль</h1>
         <h3>Пройдено тестов: {{ tests_done }}</h3>
+        <h3>Баланс: {{ balance }}</h3>
+    </div>
+    <div class="mb-5">
+        <h1>Доступные цвета</h1>
+        {% for color in colors %}
+        
     </div>
     <div class="mb-5">
         <h3>Изменить цвета рамки и бэкграунда:</h3>
