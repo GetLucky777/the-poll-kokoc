@@ -13,6 +13,3 @@ class CreationForm(UserCreationForm):
             'username',
             'email'
         )
-
-
-

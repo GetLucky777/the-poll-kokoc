@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load user_filters %}
+{% block title %}
+  {{ poll.name }}
+{% endblock title %}
 {% block content %}
   <h1> {{ poll.name }} </h1>
   {% include 'includes/question_card.html' %}

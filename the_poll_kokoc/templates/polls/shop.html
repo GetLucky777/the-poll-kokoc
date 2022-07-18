@@ -1,20 +1,22 @@
 {% extends "base.html" %}
 {% load user_filters %}
-{% block title %}Войти{% endblock %}
+{% block title %}
+  Магазин
+{% endblock %}
 {% block content %}
   <div class="mb-5">
     <div class="mb-5">
         <h3>Доступные цвета</h3>
         {% for color in colors %}
           <p>
-            <div class="mb-1 {{ color.color }} bg-gradient rounded">
+            <div class="mb-1 bg-{{ color.color }} bg-gradient rounded">
                 Цвет рамки никнейма и бэкграунда профиля
             </div>
           Стоимость: {{ color.cost }}
           </p>
         {% endfor %}
     </div>
-    <div class="card_body">
+    <div class="mb-5">
       <h3>Купите новый цвет:</h3>
       {% if form.errors %}
         {% for field in form %} 
@@ -51,10 +53,12 @@
               {% endif %}
           </div>
         {% endfor %}
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-center">
           <button type="submit" class="btn btn-primary">
             Купить
           </button>
         </div>
+      </form>
+    </div>
   </div>
 {% endblock %}

@@ -35,7 +35,7 @@ class ColorForm(forms.ModelForm):
             'login_color',
             'background_color'
         )
-    
+
     def __init__(self, *args, **kwargs):
         login_color_qs = kwargs.pop('login_color_qs')
         background_color_qs = kwargs.pop('background_color_qs')

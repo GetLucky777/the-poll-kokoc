@@ -8,11 +8,11 @@
             <a class="nav-link {% if view_name == 'polls:index' %}active{% endif %}" 
             href="{% url 'polls:index' %}">Главная</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link {% if view_name == 'polls:leaderboard' %}active{% endif %}"
-            href="{% url 'polls:leaderboard' %}">Таблица лидеров</a>
-          </li>
         {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link {% if view_name == 'polls:userboard' %}active{% endif %}"
+            href="{% url 'polls:userboard' %}">Список пользователей</a>
+          </li>
           <li class="nav-item"> 
             <a class="nav-link {% if view_name == 'polls:profile' %}active{% endif %}" 
             href="{% url 'polls:profile' %}">Профиль</a>
@@ -29,8 +29,9 @@
             <a class="nav-link {% if view_name == 'users:logout' %}active{% endif %}" 
             href="{% url 'users:logout' %}">Выйти</a>
           </li>
-          <li class="nav-item">
-            {{ user.username }} 
+          <li class="nav-item"> 
+            <a class="nav-link" 
+            href="{% url 'polls:profile' %}"> {{ user.username }} </a>
           </li>
         {% else %}
           <li class="nav-item"> 

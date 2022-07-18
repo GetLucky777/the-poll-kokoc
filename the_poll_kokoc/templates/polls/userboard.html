@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load user_filters %}
+{% block title %}
+  Список пользователей
+{% endblock %}
+{% block content %}
+  <h1>Список пользователей</h1>
+  {% for user, tests_done in users_data %}
+    {% include 'includes/user_card.html' %}
+    {% if not forloop.last %}<hr>{% endif %}
+  {% endfor %}
+{% endblock %}

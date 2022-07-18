@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load user_filters %}
-{% block title %}Войти{% endblock %}
+{% block title %}Профиль{% endblock %}
 {% block content %}
-  <div class="mb-5 {{ backgrnd_color }} bg-gradient rounded">
-    <div class="mb-5 d-flex align-items-center justify-content-center">
-        <h1>Ваш профиль</h1>
+  <div class="mb-5 bg-{{ backgrnd_color }} bg-gradient rounded">
+    <div class="mb-5 d-flex align-items-center justify-content-center border border-4 border-{{ login_color }}">
+        <h1>{{ user.get_username }}</h1>
     </div>
     <div class="mb-5">
         <h3>Пройдено тестов: {{ tests_done }}</h3>
@@ -16,32 +16,33 @@
         <h3>У вас куплено {{login_purchases_number}} рамок для логина и {{background_purchases_number}} цветов бэкграунда</h3>
     </div>
     <div class="mb-5">
-        <h3>Выберите цвета логина и бэкграунда:</h3>
-          <form method="post">
-            {% csrf_token %}
-            {% for field in choose_form %}
-              <div class="form-group row my-3">
-                <label for="{{ field.id_for_label }}">
-                  {{ field.label }}
-                    {% if field.field.required %}
-                      <span class="required text-danger">*</span>
-                    {% endif %}
-                </label>
-                {{ field|addclass:'form-control' }} 
-                  {% if field.help_text %}
-                    <small 
-                       id="{{ field.id_for_label }}-help"
-                       class="form-text text-muted"
-                    >
-                      {{ field.help_text|safe }}
-                    </small>
+      <h3>Выберите цвета логина и бэкграунда:</h3>
+        <form method="post">
+        {% csrf_token %}
+          {% for field in choose_form %}
+            <div class="form-group row my-3">
+              <label width: 100px for="{{ field.id_for_label }} ">
+                {{ field.label }}
+                  {% if field.field.required %}
+                    <span class="required text-danger">*</span>
                   {% endif %}
-              </div>
-            {% endfor %}
-            <div class="d-flex justify-content-end">
-              <button type="submit" class="btn btn-primary">
-                Применить
-              </button>
+              </label>
+              {{ field|addclass:'form-control' }} 
+                {% if field.help_text %}
+                  <small 
+                     id="{{ field.id_for_label }}-help"
+                     class="form-text text-muted"
+                  >
+                    {{ field.help_text|safe }}
+                  </small>
+                {% endif %}
             </div>
+          {% endfor %}
+          <div class="mb-5 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">
+              Применить
+            </button>
+          </div>
+        </form>
   </div>
 {% endblock %}

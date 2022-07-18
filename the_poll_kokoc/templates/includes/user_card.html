@@ -1,0 +1,8 @@
+<div class="card-body bg-{{ user.background_color.color }} rounded">
+  <div class="mb-1 border border-3 border-{{ user.login_color.color }}">
+    <h3>{{ user.get_username }}</h3>
+  </div>
+  <p>
+    Пройдено тестов: {{ tests_done }}
+  </p>
+</div>

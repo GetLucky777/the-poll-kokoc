@@ -3,10 +3,10 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Colors(models.Model):
-    GRAY = 'bg-secondary'
-    BLUE = 'bg-primary'
-    RED = 'bg-danger'
-    GREEN = 'bg-success'
+    GRAY = 'secondary'
+    BLUE = 'primary'
+    RED = 'danger'
+    GREEN = 'success'
     USER_COLOR_CHOICES = [
         (GRAY, 'Черный'),
         (BLUE, 'Синий'),
@@ -79,7 +79,8 @@ class Poll(models.Model):
         decimal_places=2,
         verbose_name='Награда',
         help_text='Награда за прохождение опроса',
-        blank=True
+        blank=True,
+        default=0.00
     )
 
     def __str__(self) -> str:
@@ -162,7 +163,7 @@ class UserAnswer(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=['poll', 'question', 'user'],
-                name='unique poll try'
+                name='unique_poll_try'
             )
         ]
 
@@ -174,6 +175,7 @@ class Purchase(models.Model):
         (LOGIN, 'Рамка логина'),
         (BACKGROUND, 'Бэкграунд')
     ]
+
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -199,6 +201,6 @@ class Purchase(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=['color', 'user', 'type'],
-                name='unique purchase'
+                name='unique_purchase'
             )
         ]
