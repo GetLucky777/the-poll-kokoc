@@ -31,6 +31,10 @@ pip install -r requirements.txt
 ```
 python manage.py migrate
 ```
+Зарегистировать администратора для добавления опросов:
+```
+python manage.py createsuperuser
+```
 Запустить проект:
 ```
 python manage.py runserver
