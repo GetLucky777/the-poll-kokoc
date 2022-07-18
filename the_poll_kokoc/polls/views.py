@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.forms import formset_factory
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from .models import Poll, Question, Answer, UserAnswer
-from .forms import OneChoiceForm, QuestionsFormSet
+from .models import Poll, Question, Answer, UserAnswer, Colors, Purchase
+from .forms import OneChoiceForm, QuestionsFormSet, ColorForm, PurchaseForm
 
 
 User = get_user_model()
@@ -58,6 +58,68 @@ def take_poll(request, poll_id):
             'question_data': zip(formset, questions),
             'poll': poll
         }
+    )
+
+
+def shop(request):
+    colors = Colors.objects.all()
+    balance = request.user.balance
+    buy_form = PurchaseForm(
+        request.POST or None,
+        request.FILES or None,
+
+    )
+    if buy_form.is_valid():
+        purchase = buy_form.save(commit=False)
+        purchase.user = request.user
+        purchase_color = buy_form.cleaned_data['color']
+        purchase_type = buy_form.cleaned_data['type']
+        if request.user.balance >= purchase_color.cost and not Purchase.objects.all().filter(user=request.user).filter(color=purchase_color).filter(type=purchase_type).exists():
+            purchase.save()
+            request.user.balance -= purchase_color.cost
+            request.user.save()
+            balance = request.user.balance   
+            buy_form = PurchaseForm()
+    context = {
+        'buy_form': buy_form,
+        'colors': colors,
+        'balance': balance
+    }
+    return render(
+        request,
+        'polls/shop.html',
+        context
+    )
+
+
+def profile(request):
+    tests_done = Poll.objects.all().filter(user_answers__user=request.user).distinct().count()
+    balance = request.user.balance
+    available_login_colors = list(Purchase.objects.filter(user=request.user).filter(type='login').values_list('color_id', flat=True))
+    available_background_colors = list(Purchase.objects.filter(user=request.user).filter(type='backgrnd').values_list('color_id', flat=True))
+    login_color_qs = Colors.objects.filter(id__in=available_login_colors)
+    background_color_qs = Colors.objects.filter(id__in=available_background_colors)
+    choose_form = ColorForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=request.user,
+        login_color_qs=login_color_qs,
+        background_color_qs=background_color_qs
+    )
+    if choose_form.is_valid():
+        choose_form.save()
+    context = {
+        'choose_form': choose_form,
+        'tests_done': tests_done,
+        'balance': balance,
+        'login_purchases_number': len(available_login_colors),
+        'background_purchases_number': len(available_background_colors),
+        'backgrnd_color': request.user.background_color.color if request.user.background_color else None
+    }
+    return render(
+        request,
+        'polls/profile.html',
+        context
     )
 
 

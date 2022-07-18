@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users.apps.UsersConfig',
     'polls.apps.PollsConfig',
-    'core.apps.CoreConfig'
+    'core.apps.CoreConfig',
+    'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [
@@ -127,7 +127,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 # New User model
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'polls.User'
 
 # Redirects
 

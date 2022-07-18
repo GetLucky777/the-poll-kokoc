@@ -15,7 +15,6 @@ from . import views
 app_name = 'users'
 
 urlpatterns = [
-    path('profile/', views.profile, name='profile'),
     path('signup/', views.SignUp.as_view(), name='signup'),
     path(
         'logout/',

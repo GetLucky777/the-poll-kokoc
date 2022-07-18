@@ -14,8 +14,12 @@
           </li>
         {% if user.is_authenticated %}
           <li class="nav-item"> 
-            <a class="nav-link {% if view_name == 'users:profile' %}active{% endif %}" 
-            href="{% url 'users:profile' %}">Профиль</a>
+            <a class="nav-link {% if view_name == 'polls:profile' %}active{% endif %}" 
+            href="{% url 'polls:profile' %}">Профиль</a>
+          </li>
+          <li class="nav-item"> 
+            <a class="nav-link {% if view_name == 'polls:shop' %}active{% endif %}" 
+            href="{% url 'polls:shop' %}">Магазин</a>
           </li>
           <li class="nav-item"> 
             <a class="nav-link {% if view_name == 'users:password_change' %}active{% endif %}" 
@@ -26,9 +30,7 @@
             href="{% url 'users:logout' %}">Выйти</a>
           </li>
           <li class="nav-item">
-            <span class="border border-secondary border-4">
-              {{ user.username }} 
-            </span> 
+            {{ user.username }} 
           </li>
         {% else %}
           <li class="nav-item"> 
