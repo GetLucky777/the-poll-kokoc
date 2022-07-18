@@ -37,6 +37,7 @@ python manage.py runserver
 ```
 # Скриншоты проекта
 ![image](https://user-images.githubusercontent.com/90413693/179612440-b0a7190d-5a7c-4d27-842f-fec9fb6edc24.png)
+![image](https://user-images.githubusercontent.com/90413693/179612752-9790d998-0b24-48af-85f2-f618e87bf763.png)
 ![image](https://user-images.githubusercontent.com/90413693/179612486-99acc30d-cc52-473f-9bdd-be94712e1ea3.png)
 ![image](https://user-images.githubusercontent.com/90413693/179612521-53a92434-100c-42be-bacd-bc004134b5e6.png)
 ![image](https://user-images.githubusercontent.com/90413693/179612546-c82a2d02-a40e-4972-b2ef-7f23e4270101.png)
